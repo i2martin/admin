@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  settings     Settings?
+}
+
+model Settings {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  fullName      String?
+  homeAddress   String?
+  workAddress   String?
+
+  distanceToWork    Decimal? @db.Decimal(10, 2) // km
+  distanceFromWork  Decimal? @db.Decimal(10, 2) // km
+  pricePerKm        Decimal? @db.Decimal(10, 2)
+  defaultTransport String?  // "car", "bus", ...
+}
+
+
