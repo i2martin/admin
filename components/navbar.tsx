@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 
 const links = [
-  { href: "/travel-expenses", label: "Travel expenses" },
-  { href: "/honorariums", label: "Honorariums" },
-  { href: "/settings", label: "Settings" },
+  { href: "/travel-expenses", label: "Putni troškovi" },
+  { href: "/honorariums", label: "Prekovremeni sati" },
+  { href: "/settings", label: "Postavke" },
 ];
 
 function isActive(pathname: string, href: string) {
@@ -51,7 +51,7 @@ export default function Navbar() {
           onClick={() => signOut({ callbackUrl: "/login" })}
           className="px-3 py-2 rounded-xl text-sm border hover:bg-gray-50"
         >
-          Sign out
+          Odjava
         </button>
       </div>
     </header>

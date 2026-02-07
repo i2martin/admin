@@ -17,7 +17,7 @@ export default function LoginClient() {
   return (
     <main className="min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-sm rounded-2xl border p-6 shadow-sm">
-        <h1 className="text-xl font-semibold">Sign in</h1>
+        <h1 className="text-xl font-semibold">Prijava</h1>
 
         <form
           className="mt-6 space-y-3"
@@ -35,7 +35,7 @@ export default function LoginClient() {
             setLoading(false);
 
             if (!res?.ok) {
-              setErr("Invalid email or password.");
+              setErr("Neispravno korisničko ime ili lozinka.");
               return;
             }
 
@@ -54,7 +54,7 @@ export default function LoginClient() {
           <input
             className="w-full rounded-xl border px-3 py-2"
             type="password"
-            placeholder="Password"
+            placeholder="Lozinka"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"
@@ -68,7 +68,7 @@ export default function LoginClient() {
             disabled={loading}
             type="submit"
           >
-            {loading ? "Signing in..." : "Sign in"}
+            {loading ? "Prijava..." : "Prijava"}
           </button>
         </form>
       </div>

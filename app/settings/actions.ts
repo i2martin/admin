@@ -46,7 +46,7 @@ export async function saveSettings(form: {
       distanceToWork: parseDecimal(form.distanceToWork),
       distanceFromWork: parseDecimal(form.distanceFromWork),
       pricePerKm: parseDecimal(form.pricePerKm),
-      defaultTransport: form.defaultTransport || "car",
+      defaultTransport: form.defaultTransport || "osobni automobil",
     },
     create: {
       userId: user.id,
@@ -56,7 +56,7 @@ export async function saveSettings(form: {
       distanceToWork: parseDecimal(form.distanceToWork),
       distanceFromWork: parseDecimal(form.distanceFromWork),
       pricePerKm: parseDecimal(form.pricePerKm),
-      defaultTransport: form.defaultTransport || "car",
+      defaultTransport: form.defaultTransport || "osobni automobil",
     },
   });
 

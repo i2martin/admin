@@ -8,7 +8,7 @@ type Row = {
   transport: string;
 };
 
-const TRANSPORTS = ["car", "bus", "train", "tram", "bike", "walk", "other"];
+const TRANSPORTS = ["osobni automobil", "autobus", "vlak", "tramvaj"];
 
 function formatHRFromISO(iso: string) {
   const d = new Date(iso);
@@ -69,7 +69,7 @@ export default function TravelTable({
 
       if (!res.ok) {
         const msg = await res.text().catch(() => "");
-        alert(`Download failed. ${msg}`);
+        alert(`Preuzimanje nije uspjelo. ${msg}`);
         return;
       }
 
@@ -96,14 +96,14 @@ export default function TravelTable({
           type="button"
           onClick={() => setAllIncluded(true)}
         >
-          Select all
+          Označi sve
         </button>
         <button
           className="rounded-xl border px-3 py-2 text-sm"
           type="button"
           onClick={() => setAllIncluded(false)}
         >
-          Unselect all
+          Odznači sve
         </button>
 
         <div className="w-px h-8 bg-gray-200 mx-1" />
@@ -113,35 +113,35 @@ export default function TravelTable({
           type="button"
           onClick={() => setIncludedForDow(1, true)}
         >
-          All Mondays
+          Ponedjeljak
         </button>
         <button
           className="rounded-xl border px-3 py-2 text-sm"
           type="button"
           onClick={() => setIncludedForDow(2, true)}
         >
-          All Tuesdays
+          Utorak
         </button>
         <button
           className="rounded-xl border px-3 py-2 text-sm"
           type="button"
           onClick={() => setIncludedForDow(3, true)}
         >
-          All Wednesdays
+          Srijeda
         </button>
         <button
           className="rounded-xl border px-3 py-2 text-sm"
           type="button"
           onClick={() => setIncludedForDow(4, true)}
         >
-          All Thursdays
+          Četvrtak
         </button>
         <button
           className="rounded-xl border px-3 py-2 text-sm"
           type="button"
           onClick={() => setIncludedForDow(5, true)}
         >
-          All Fridays
+          Petak
         </button>
 
         <div className="flex-1" />
@@ -152,24 +152,26 @@ export default function TravelTable({
           onClick={download}
           disabled={isPending}
         >
-          {isPending ? "Preparing..." : "Download"}
+          {isPending ? "Priprema u tijeku..." : "Preuzmi"}
         </button>
       </div>
 
       <div className="text-sm text-gray-600">
-        Distances (fixed from settings): to work <b>{kmTo}</b> km, from work{" "}
-        <b>{kmFrom}</b> km, price/km <b>{pricePerKm}</b> EUR
+        Udaljenosti (iz postavki): do radnog mjesta <b>{kmTo}</b> km, od radnog
+        mjesta <b>{kmFrom}</b> km, naknada/km <b>{pricePerKm}</b> EUR
       </div>
 
       <div className="overflow-x-auto rounded-2xl border">
         <table className="min-w-[900px] w-full text-sm">
           <thead className="bg-gray-50">
             <tr>
-              <th className="text-left p-3">Date</th>
-              <th className="text-left p-3">Distance to work (km)</th>
-              <th className="text-left p-3">Distance from work (km)</th>
-              <th className="text-left p-3">Transport</th>
-              <th className="text-left p-3">Include</th>
+              <th className="text-left p-3">Datum</th>
+              <th className="text-left p-3">Udaljenost do mjesta rada (km)</th>
+              <th className="text-left p-3">
+                Udaljenost pri povratku s mjesta rada (km)
+              </th>
+              <th className="text-left p-3">Prijevozno sredstvo</th>
+              <th className="text-left p-3">Odabrano</th>
             </tr>
           </thead>
           <tbody>

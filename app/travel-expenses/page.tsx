@@ -67,7 +67,7 @@ export default async function TravelExpensesPage() {
 
   return (
     <main className="p-6 space-y-4">
-      <h1 className="text-xl font-semibold">Travel expenses</h1>
+      <h1 className="text-xl font-semibold">Putni troškovi</h1>
 
       <TravelTable
         initialRows={rows}
