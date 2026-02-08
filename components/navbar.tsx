@@ -6,7 +6,7 @@ import { signOut } from "next-auth/react";
 
 const links = [
   { href: "/travel-expenses", label: "Putni troškovi" },
-  { href: "/honorariums", label: "Prekovremeni sati" },
+  { href: "/extra-hours", label: "Prekovremeni sati" },
   { href: "/settings", label: "Postavke" },
 ];
 
