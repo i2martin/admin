@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function LoginClient() {
   const router = useRouter();
   const sp = useSearchParams();
-  const from = sp.get("from") || "/travel-expenses";
+  const from = sp.get("from") || "/dashboard";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

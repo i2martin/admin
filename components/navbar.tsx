@@ -20,8 +20,8 @@ export default function Navbar() {
   return (
     <header className="border-b bg-white">
       <div className="mx-auto max-w-6xl px-4 py-3 flex items-center gap-3">
-        <Link href="/travel-expenses" className="font-semibold">
-          Admin
+        <Link href="/dashboard" className="font-semibold">
+          Naslovna
         </Link>
 
         <nav className="flex items-center gap-1">
