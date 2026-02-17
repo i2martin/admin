@@ -14,12 +14,18 @@ export default async function DashboardOverviewPage() {
     include: { settings: true },
   });
 
-  if (!user) return <div className="p-6">User not found</div>;
+  if (!user) return <div className="p-6">Korisnik nije pronađen</div>;
 
   if (!user?.settings) {
     return (
       <main className="p-8 max-w-6xl mx-auto">
-        <p className="text-red-500">Missing settings</p>
+        <p className="text-red-500">
+          Nedostaju postavke korisnika. Ažurirajte Vaše postavke{" "}
+          <Link href="/settings" className="font-semibold">
+            ovdje
+          </Link>
+          .
+        </p>
       </main>
     );
   }
@@ -42,12 +48,15 @@ export default async function DashboardOverviewPage() {
       <main className="p-8 max-w-6xl mx-auto space-y-2">
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <p className="text-red-500">
-          Could not geocode home/work address. Check addresses in settings.
+          Nije moguće odrediti položaj upisanih adresa. Molimo provjerite
+          unesene adrese i ažurirajte ih.
         </p>
         <p className="text-sm text-slate-600">
-          Home: <span className="font-semibold">{homeAddress || "—"}</span>
+          Adresa stanovanja:{" "}
+          <span className="font-semibold">{homeAddress || "—"}</span>
           <br />
-          Work: <span className="font-semibold">{workAddress || "—"}</span>
+          Adresa rada:{" "}
+          <span className="font-semibold">{workAddress || "—"}</span>
         </p>
       </main>
     );

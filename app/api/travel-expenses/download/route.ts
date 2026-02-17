@@ -174,12 +174,13 @@ export async function POST(req: Request) {
   let sumTo = 0;
   let sumFrom = 0;
 
+  let writtenRows = 0;
   for (let i = 0; i < MAX; i++) {
-    const excelRow = START_ROW + i;
     const item = rows[i];
     if (!item) continue;
     if (!item.included) continue;
-
+    const excelRow = START_ROW + writtenRows;
+    writtenRows++;
     const d = new Date(item.dateISO);
     ws[`A${excelRow}`] = { t: "s", v: hrDate(d), s: VHAlignment };
     ws[`B${excelRow}`] = { t: "n", v: kmTo, s: VHAlignment };
