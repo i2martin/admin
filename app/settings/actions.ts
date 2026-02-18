@@ -27,6 +27,8 @@ export async function saveSettings(form: {
   distanceFromWork: string; // decimal text
   pricePerKm: string; // decimal text
   defaultTransport: string;
+  organisationName: string;
+  ticketPrice?: string; // decimal text
 }) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.email) throw new Error("Unauthorized");
@@ -47,6 +49,8 @@ export async function saveSettings(form: {
       distanceFromWork: parseDecimal(form.distanceFromWork),
       pricePerKm: parseDecimal(form.pricePerKm),
       defaultTransport: form.defaultTransport || "osobni automobil",
+      organisationName: form.organisationName || null,
+      ticketPrice: form.ticketPrice ? parseDecimal(form.ticketPrice) : null,
     },
     create: {
       userId: user.id,
@@ -57,6 +61,8 @@ export async function saveSettings(form: {
       distanceFromWork: parseDecimal(form.distanceFromWork),
       pricePerKm: parseDecimal(form.pricePerKm),
       defaultTransport: form.defaultTransport || "osobni automobil",
+      organisationName: form.organisationName || null,
+      ticketPrice: form.ticketPrice ? parseDecimal(form.ticketPrice) : null,
     },
   });
 

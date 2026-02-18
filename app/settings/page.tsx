@@ -29,7 +29,9 @@ export default async function SettingsPage() {
           distanceToWork: s?.distanceToWork?.toString() ?? "",
           distanceFromWork: s?.distanceFromWork?.toString() ?? "",
           pricePerKm: s?.pricePerKm?.toString() ?? "",
-          defaultTransport: s?.defaultTransport ?? "car",
+          defaultTransport: s?.defaultTransport ?? "osobni automobil",
+          organisationName: s?.organisationName ?? "",
+          ticketPrice: s?.ticketPrice?.toString() ?? "",
         }}
       />
     </main>

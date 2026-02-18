@@ -19,13 +19,16 @@ model Settings {
   userId        String   @unique
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  
   fullName      String?
   homeAddress   String?
   workAddress   String?
+  organisationName  String?
 
   distanceToWork    Decimal? @db.Decimal(10, 2) // km
   distanceFromWork  Decimal? @db.Decimal(10, 2) // km
   pricePerKm        Decimal? @db.Decimal(10, 2)
+  ticketPrice       Decimal?  @default(45.00) @db.Decimal(10, 2)
   defaultTransport String?  // "car", "bus", ...
 }
 

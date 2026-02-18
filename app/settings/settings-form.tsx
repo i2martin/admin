@@ -16,6 +16,8 @@ export default function SettingsForm({
     distanceFromWork: string;
     pricePerKm: string;
     defaultTransport: string;
+    organisationName: string;
+    ticketPrice?: string;
   };
 }) {
   const [form, setForm] = useState(initial);
@@ -48,6 +50,17 @@ export default function SettingsForm({
             className="mt-1 w-full rounded-xl border px-3 py-2"
             value={form.fullName}
             onChange={(e) => set("fullName", e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="text-sm font-medium">
+            Naziv organizacije/škole
+          </label>
+          <input
+            className="mt-1 w-full rounded-xl border px-3 py-2"
+            value={form.organisationName}
+            onChange={(e) => set("organisationName", e.target.value)}
           />
         </div>
 
@@ -109,6 +122,19 @@ export default function SettingsForm({
               placeholder="npr. 0.16"
               value={form.pricePerKm}
               onChange={(e) => set("pricePerKm", e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="text-sm font-medium">
+              Cijena mjesečne karte (EUR)
+            </label>
+            <input
+              className="mt-1 w-full rounded-xl border px-3 py-2"
+              inputMode="decimal"
+              placeholder="npr. 45.00"
+              value={form.ticketPrice}
+              onChange={(e) => set("ticketPrice", e.target.value)}
             />
           </div>
 

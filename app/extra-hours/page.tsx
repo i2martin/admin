@@ -29,7 +29,7 @@ function isoDate(date: Date) {
 export default async function ExtraHoursPage() {
   const session = await getServerSession(authOptions);
   if (!session?.user?.email)
-    return <div className="p-6">Not authenticated</div>;
+    return <div className="p-6">Niste autentificirani</div>;
 
   const user = await prisma.user.findUnique({
     where: { email: session.user.email },

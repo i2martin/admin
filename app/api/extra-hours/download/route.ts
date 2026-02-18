@@ -109,10 +109,15 @@ export async function POST(req: Request) {
   const TEACHER_CELL = "F7";
   const MONTH_CELL = "K5";
   const WORK_ADDRESS_CELL = "A4";
+  const ORGANISATION_NAME_CELL = "A3";
   // ---------------------------
 
   // Fill teacher name from settings
   setCell(ws, TEACHER_CELL, { t: "s", v: user.settings?.fullName ?? "" });
+  setCell(ws, ORGANISATION_NAME_CELL, {
+    t: "s",
+    v: user.settings?.organisationName ?? "",
+  });
   setCell(ws, WORK_ADDRESS_CELL, {
     t: "s",
     v: user.settings?.workAddress ?? "",

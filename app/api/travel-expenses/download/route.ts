@@ -31,6 +31,11 @@ export async function POST(req: Request) {
     return new NextResponse("Missing settings", { status: 400 });
   }
 
+  function getPostalCode(str: string): string | null {
+    const match = str.match(/\b\d{5}\b/);
+    return match ? match[0] : null;
+  }
+
   const body = (await req.json()) as { rows?: RowInput[] };
   const rows = body.rows ?? [];
   const s = user.settings;
@@ -151,11 +156,6 @@ export async function POST(req: Request) {
     s: VHAlignment,
   };
 
-  ws["A38"] = {
-    t: "s",
-    v: `Naknada po prijeđenom kilometru: ${pricePerKm ?? ""} EUR`,
-  };
-
   ws["D40"] = {
     t: "s",
     v: `______________________`,
@@ -165,16 +165,15 @@ export async function POST(req: Request) {
     v: `______________________`,
   };
 
-  // Clear rows 10..33
   const START_ROW = 10;
   const END_ROW = 32;
   const MAX = END_ROW - START_ROW + 1;
 
-  // Fill (keep row positions; excluded blank)
   let sumTo = 0;
   let sumFrom = 0;
-
   let writtenRows = 0;
+  let totalKm = 0;
+  let amount = 0;
   for (let i = 0; i < MAX; i++) {
     const item = rows[i];
     if (!item) continue;
@@ -191,8 +190,35 @@ export async function POST(req: Request) {
     sumFrom += kmFrom;
   }
 
-  const totalKm = sumTo + sumFrom;
-
+  console.log(rows.length);
+  console.log(rows);
+  if (s.defaultTransport !== "osobni automobil" && s.ticketPrice != null) {
+    amount = round2((s.ticketPrice.toNumber() / rows.length) * writtenRows);
+    ws["A38"] = {
+      t: "s",
+      v: `Iznos mjesečne karte: ${s.ticketPrice?.toNumber() ?? ""} EUR`,
+    };
+  } else if (
+    s.defaultTransport === "osobni automobil" &&
+    s.homeAddress !== null &&
+    s.workAddress !== null &&
+    s.ticketPrice != null &&
+    getPostalCode(s.homeAddress) === getPostalCode(s.workAddress)
+  ) {
+    amount = round2((s.ticketPrice.toNumber() / rows.length) * writtenRows);
+    ws["A38"] = {
+      t: "s",
+      v: `Iznos mjesečne karte: ${s.ticketPrice?.toNumber() ?? ""} EUR`,
+    };
+  } else {
+    ws["A38"] = {
+      t: "s",
+      v: `Naknada po prijeđenom kilometru: ${pricePerKm ?? ""} EUR`,
+    };
+    totalKm = sumTo + sumFrom;
+    amount = round2(pricePerKm * totalKm);
+  }
+  console.log(writtenRows);
   ws["B34"] = { t: "n", v: sumTo, s: VHAlignment };
   ws["C34"] = { t: "n", v: sumFrom, s: VHAlignment };
   ws["D34"] = { t: "n", v: totalKm, s: VHAlignment };
@@ -208,7 +234,6 @@ export async function POST(req: Request) {
     v: `DATUM PODNOŠENJA IZVJEŠĆA: ${hrDate(lastWorkingDayOfMonth(new Date()))}`,
   };
 
-  const amount = round2(pricePerKm * totalKm);
   ws["A39"] = {
     t: "s",
     v: `Na ime naknade troška prijevoza potražujem: ${amount} EUR`,
